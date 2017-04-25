@@ -7,15 +7,11 @@
 
 <h2>สั่งซื้อสินค้า</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @if (Session["Status"] != null)
 {
     var types = Session["Status"];
     if (types.Equals(0))
     {
-        <h2>showwhey</h2>
         <p>
             @Html.ActionLink("Create New", "insertwhey")
         </p>
@@ -56,7 +52,6 @@
     }
     else
     {
-        <h2>รายการสินค้า</h2>
         <p>(เมื่อสั่งซื้อแล้วกรุณาจ่ายเงินแล้วยื่นยันการโอนมาที่ Line : Admin_ID เพื่อยืนยันการสั่งซื้อค่ะ)</p>
         <table class="table">
             <tr>

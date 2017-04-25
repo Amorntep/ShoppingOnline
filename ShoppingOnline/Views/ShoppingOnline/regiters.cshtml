@@ -21,7 +21,7 @@
                 ชื่อสมาชิก
             </label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactName)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContactName)
             </div>
         </div>
@@ -31,7 +31,7 @@
                 ที่อยู่
             </label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Address)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Address)
             </div>
         </div>
@@ -41,7 +41,7 @@
                 เบอร์โทรศัพท์
             </label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone)
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Phone)
             </div>
         </div>
@@ -62,7 +62,7 @@
             </label>
             
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>

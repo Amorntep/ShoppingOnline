@@ -14,8 +14,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
-<body>
+<body style="border-image: url('')">
+    
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -55,6 +57,10 @@
                             <li>@Html.ActionLink("ดูรายการที่ถูกสั่งซื้อ", "showorders", "ShoppingOnline")</li>
                             
 
+                        }else { 
+                            <li>@Html.ActionLink("เพิ่มข้อมูลสินค้า", "insertProduct", "ShoppingOnline")</li>
+                            <li>@Html.ActionLink("รายชื่อสมาชิก", "showmember", "ShoppingOnline")</li>
+                            <li>@Html.ActionLink("ดูรายการที่ถูกสั่งซื้อ", "showorders", "ShoppingOnline")</li>
                         }
                        
                     }
