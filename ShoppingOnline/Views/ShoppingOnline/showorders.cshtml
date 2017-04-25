@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Orders>
+
+@{
+    ViewBag.Title = "showorders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>รายการคนที่สั่งซื้อ</h2>
+
+<p>
+    @Html.ActionLink("ดูรายการชำระเงินแล้ว", "showorders2")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            วันที่ซื้อสินค้า
+        </th>
+        <th>
+            ชื่อสินค้าที่สั่งซื้อ
+        </th>
+        <th>
+            ชื่อคนสั่งซื้อสินค้า
+        </th>
+        <th>
+            สถานะการสั่งซื้อ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDates)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Products.ProductName)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Customers.ContactName)
+        </td>
+        <td>
+            รอการชำระเงิน
+        </td>
+        <td>
+            @Html.ActionLink("ยืนยันการชำระเงิน", "editbay", new { id = item.OrderID }, new {@class="btn btn-primary" })
+            @Html.ActionLink("ลบสินค้า", "deleteOrder", new { id = item.OrderID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

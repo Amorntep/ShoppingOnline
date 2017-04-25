@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShoppingOnlineDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ShoppingOnlineDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorys" EntityType="ShoppingOnlineDatabaseModel.Categorys" />
+    <EntitySet Name="Customers" EntityType="ShoppingOnlineDatabaseModel.Customers" />
+    <EntitySet Name="OrderDetails" EntityType="ShoppingOnlineDatabaseModel.OrderDetails" />
+    <EntitySet Name="Orders" EntityType="ShoppingOnlineDatabaseModel.Orders" />
+    <EntitySet Name="Products" EntityType="ShoppingOnlineDatabaseModel.Products" />
+    <AssociationSet Name="FK_dbo_Categorys" Association="ShoppingOnlineDatabaseModel.FK_dbo_Categorys">
+      <End Role="Categorys" EntitySet="Categorys" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Customers" Association="ShoppingOnlineDatabaseModel.FK_dbo_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_dbo_Orders" Association="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_dbo_Products" Association="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categorys">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Products" Relationship="ShoppingOnlineDatabaseModel.FK_dbo_Categorys" FromRole="Categorys" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="ShoppingOnlineDatabaseModel.FK_dbo_Customers" FromRole="Customers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="4" />
+    <Property Name="Quantity" Type="Int16" />
+    <NavigationProperty Name="Orders" Relationship="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Orders" FromRole="OrderDetails" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Products" FromRole="OrderDetails" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customers" Relationship="ShoppingOnlineDatabaseModel.FK_dbo_Customers" FromRole="Orders" ToRole="Customers" />
+    <NavigationProperty Name="OrderDetails" Relationship="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Orders" FromRole="Orders" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Categorys" Relationship="ShoppingOnlineDatabaseModel.FK_dbo_Categorys" FromRole="Products" ToRole="Categorys" />
+    <NavigationProperty Name="OrderDetails" Relationship="ShoppingOnlineDatabaseModel.FK_OrderDetails_dbo_Products" FromRole="Products" ToRole="OrderDetails" />
+  </EntityType>
+  <Association Name="FK_dbo_Categorys">
+    <End Type="ShoppingOnlineDatabaseModel.Categorys" Role="Categorys" Multiplicity="0..1" />
+    <End Type="ShoppingOnlineDatabaseModel.Products" Role="Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorys">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Customers">
+    <End Type="ShoppingOnlineDatabaseModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="ShoppingOnlineDatabaseModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_dbo_Orders">
+    <End Type="ShoppingOnlineDatabaseModel.Orders" Role="Orders" Multiplicity="1" />
+    <End Type="ShoppingOnlineDatabaseModel.OrderDetails" Role="OrderDetails" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_dbo_Products">
+    <End Type="ShoppingOnlineDatabaseModel.Products" Role="Products" Multiplicity="0..1" />
+    <End Type="ShoppingOnlineDatabaseModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Products>
+
+@{
+    ViewBag.Title = "showwhey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>สั่งซื้อสินค้า</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Session["Status"] != null)
+{
+    var types = Session["Status"];
+    if (types.Equals(0))
+    {
+        <h2>showwhey</h2>
+        <p>
+            @Html.ActionLink("Create New", "insertwhey")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorys.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categorys.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "editwhey", new { id = item.ProductID }) |
+                        @Html.ActionLink("Delete", "deletewhey", new { id = item.ProductID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <h2>รายการสินค้า</h2>
+        <p>(เมื่อสั่งซื้อแล้วกรุณาจ่ายเงินแล้วยื่นยันการโอนมาที่ Line : Admin_ID เพื่อยืนยันการสั่งซื้อค่ะ)</p>
+        <table class="table">
+            <tr>
+                <th>
+                   ชื่อสินค้า
+                </th>
+                <th>
+                    ประเภทของสินค้า
+                </th>
+                <th>
+                   ราคาสินค้า
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categorys.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @using (Html.BeginForm())
+                        {
+                            <input type="hidden" name="ProductID" value="@item.ProductID">
+                            <input type="hidden" name="ProductName" value="@item.ProductName">
+                            <input type="hidden" name="CustomerID" value="@Session["CustomerID"]">
+                            <input type="hidden" name="status_bay" value="0">
+                            <input type="hidden" name="OrderDates" id="date" />
+                            <button type="submit" class="btn btn-primary" >สั่งซื้อ</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+
+        var output = d.getFullYear() + '/' +
+            (month < 10 ? '0' : '') + month + '/' +
+            (day < 10 ? '0' : '') + day;
+
+        $('#date').val(output);
+
+        
+    });
+</script>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Orders>
+
+@{
+    ViewBag.Title = "showorders2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>showorders2</h2>
+
+<p>
+    @Html.ActionLink("ย้อนกลับ", "showorders")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            วันที่สั่งซื้อสินค้า
+        </th>
+        <th>
+            ชื่อสินค้าที่สั่งซื้อ
+        </th>
+        <th>
+            ชื่อคนที่สั่งซื้อ
+        </th>
+        <th>
+        สถานะการชำระเงิน
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDates)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Products.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customers.ContactName)
+        </td>
+        <td>
+            <p>ชำระเงินแล้ว</p>
+        </td>
+        <td>
+            @Html.ActionLink("ลบรายการสั่งซื้อ", "deleteOrders", new { id = item.OrderID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
