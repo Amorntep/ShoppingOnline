@@ -216,6 +216,8 @@
     <Content Include="Views\ShoppingOnline\showorders.cshtml" />
     <Content Include="Views\ShoppingOnline\showwhey.cshtml" />
     <Content Include="Views\ShoppingOnline\showorders2.cshtml" />
+    <Content Include="Views\ShoppingOnline\editporduct.cshtml" />
+    <Content Include="Views\ShoppingOnline\deleteporduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

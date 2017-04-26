@@ -44,10 +44,13 @@
             @Html.DisplayFor(modelItem => item.Categorys.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new {@class="btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "btn btn-danger" })
+            @Html.ActionLink("แก้ไข้อมูลสินค้า", "editporduct", new { id = item.ProductID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("ลบสินค้า", "deleteporduct", new { id = item.ProductID }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
 
 </table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,63 @@
+﻿@model ShoppingOnline.Models.Products
+
+@{
+    ViewBag.Title = "deleteporduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ลบสินค้า</h2>
+
+<h3></h3>
+<div>
+    <h4></h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                ชื่อสินค้า
+            </th>
+            <th>
+                จำนวนสินค้า
+            </th>
+            <th>
+                ราคาสินค้า
+            </th>
+            <th>
+                รายละเอียดสินค้า
+            </th>
+            <th>
+                ประเภทสินค้า
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.ProductName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Stock)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Details)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Categorys.CategoryName)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
